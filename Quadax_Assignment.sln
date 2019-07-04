@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMind_UI", "Quadax_Assignment\MasterMind_UI.csproj", "{A039D53B-162C-4AA3-99DE-49CD92FA1FDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMind_BLL", "MasterMind_BLL\MasterMind_BLL.csproj", "{381FED4B-790D-4A32-A281-9B04C40FA9B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A039D53B-162C-4AA3-99DE-49CD92FA1FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A039D53B-162C-4AA3-99DE-49CD92FA1FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A039D53B-162C-4AA3-99DE-49CD92FA1FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A039D53B-162C-4AA3-99DE-49CD92FA1FDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381FED4B-790D-4A32-A281-9B04C40FA9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381FED4B-790D-4A32-A281-9B04C40FA9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381FED4B-790D-4A32-A281-9B04C40FA9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381FED4B-790D-4A32-A281-9B04C40FA9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86055B1A-6161-4EA7-92D9-A338C07AF95A}
+	EndGlobalSection
+EndGlobal
