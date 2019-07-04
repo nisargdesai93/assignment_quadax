@@ -3,6 +3,7 @@ using MasterMind_BLL.Enum;
 using MasterMind_BLL.Implementation;
 using MasterMind_BLL.Model;
 using System;
+using System.Collections.Generic;
 
 namespace MasterMind_UI
 {
@@ -11,7 +12,8 @@ namespace MasterMind_UI
         public static void Main(string[] args)
         {
             int loop = 1;
-            var result = new Result();
+            var playerHistory = new List<Result>();
+
 
             IGameLogic gameLogic = new GameLogic();
             IInfoMessage infoMessage = new InfoMessage();
@@ -19,7 +21,7 @@ namespace MasterMind_UI
 
             //Print introductory messages.
             infoMessage.PrintInformationalMessage((long)MessageType.WelcomeMessage);
-            infoMessage.PrintInformationalMessage((long)MessageType.Instructions);
+            infoMessage.PrintInformationalMessage((long)MessageType.Instructions,(int)Constants.MaxAttempts);
 
             infoMessage.PrintInformationalMessage((long)MessageType.PlayerConfirmation);
 
@@ -42,11 +44,12 @@ namespace MasterMind_UI
 
             var randomNumberDigits = gameLogic.GetDigitsFromNumber((int)randomNumber);
 
-            infoMessage.PrintInformationalMessage((long)MessageType.GenerateRandomNumber, 0, true, "");
+            infoMessage.PrintInformationalMessage((long)MessageType.PrintMaskedRandomNumber, 0, "");
 
             do
             {
-                infoMessage.PrintInformationalMessage((long)MessageType.Attempt, loop, false, "");
+                var result = new Result();
+                infoMessage.PrintInformationalMessage((long)MessageType.Attempt, loop, "");
 
                 var input = Console.ReadLine();
 
@@ -60,19 +63,21 @@ namespace MasterMind_UI
                 if (result.IsExactMatch)
                 {
                     infoMessage.PrintInformationalMessage((long)MessageType.Won);
+                    infoMessage.PrintIndividualResult(result);
+                    infoMessage.PrintFinalResult((long)Constants.MaxAttempts, loop, (int)randomNumber);
                     break;
                 }
-
                 infoMessage.PrintIndividualResult(result);
 
                 loop++;
             }
-            while (loop <= 10);
+            while (loop <= (long)Constants.MaxAttempts);
 
             //User has used all the chances. Hence, a message will be displayed to show he has lost.
-            if (loop >= 10)
+            if (loop >= (long)Constants.MaxAttempts)
             {
                 infoMessage.PrintInformationalMessage((long)MessageType.Lost);
+                infoMessage.PrintFinalResult((long)Constants.MaxAttempts, (long)Constants.MaxAttempts, (int)randomNumber);
             }
 
             //Ask user if he/she would like to play the game again.

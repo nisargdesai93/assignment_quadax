@@ -34,23 +34,24 @@ namespace MasterMind_BLL.Implementation
             var flag = true;
             var allowedCharacter = new int[6] { 1, 2, 3, 4, 5, 6 };
 
-            if (input.Length != 4)
+            if (!int.TryParse(input, out number))
+            {
+                Console.WriteLine("Input is not a number");
+                flag = false;
+            }
+
+            else if (input.Length != 4)
             {
                 Console.WriteLine("Number must contain only 4 digit");
                 flag = false;
             }
 
-            else if (!int.TryParse(input, out number))
-            {
-                Console.WriteLine("Input is not a number");
-                flag = false;
-            }
             else
             {
                 var userInputDigits = GetDigitsFromNumber(Convert.ToInt32(input));
 
-                if (!allowedCharacter.Contains(userInputDigits["Thousand"]) || !allowedCharacter.Contains(userInputDigits["Hundred"])
-                    || !allowedCharacter.Contains(userInputDigits["Ten"]) || !allowedCharacter.Contains(userInputDigits["Zero"]))
+                if (!allowedCharacter.Contains(userInputDigits[Digits.Thousand.ToString()]) || !allowedCharacter.Contains(userInputDigits[Digits.Hundred.ToString()])
+                    || !allowedCharacter.Contains(userInputDigits[Digits.Ten.ToString()]) || !allowedCharacter.Contains(userInputDigits[Digits.Zero.ToString()]))
                 {
                     Console.WriteLine("All digits must be between 1 to 6");
                     flag = false;
@@ -64,6 +65,7 @@ namespace MasterMind_BLL.Implementation
         {
             var result = new Result();
             var keysToExclued = new List<string>();
+            KeyValuePair<string, int> positionalMatch = new KeyValuePair<string, int>();
 
             if (randomNumberDigits.Values.SequenceEqual(userInputDigits.Values))
             {
@@ -72,9 +74,10 @@ namespace MasterMind_BLL.Implementation
 
             else
             {
+                //Preference will be given to to the condition where digit matches the position as well.
                 foreach (var userInputDigit in userInputDigits)
                 {
-                    var positionalMatch = randomNumberDigits.Where(x => x.Key == userInputDigit.Key
+                    positionalMatch = randomNumberDigits.Where(x => x.Key == userInputDigit.Key
                                             && x.Value == userInputDigit.Value
                                             && !keysToExclued.Contains(x.Key)).FirstOrDefault();
 
@@ -88,8 +91,9 @@ namespace MasterMind_BLL.Implementation
 
                 foreach (var userInputDigit in userInputDigits)
                 {
-                    var digitMatch = randomNumberDigits.Where(x => x.Value == userInputDigit.Value && !keysToExclued.Contains(x.Key)).FirstOrDefault();
 
+                    var digitMatch = randomNumberDigits.Where(x => x.Value == userInputDigit.Value && !keysToExclued.Contains(x.Key)).FirstOrDefault();
+                    // count for digit match will be updated only if positional match doesn't exist
                     if (digitMatch.Key != null)
                     {
                         result.NumberOfDigitMatch++;
@@ -104,15 +108,15 @@ namespace MasterMind_BLL.Implementation
         {
             var digits = new Dictionary<string, int>();
 
-            int thousand = number / 1000;
-            int hundred = (number - (thousand * 1000)) / 100;
-            int ten = (number - (thousand * 1000) - (hundred * 100)) / 10;
-            int zeros = (number - (thousand * 1000) - (hundred * 100) - (ten * 10));
+            int thousand = number / (int)Digits.Thousand;
+            int hundred = (number - (thousand * (int)Digits.Thousand)) / (int)Digits.Hundred;
+            int ten = (number - (thousand * (int)Digits.Thousand) - (hundred * (int)Digits.Hundred)) / (int)Digits.Ten;
+            int zeros = (number - (thousand * (int)Digits.Thousand) - (hundred * (int)Digits.Hundred) - (ten * (int)Digits.Ten));
 
-            digits.Add("Thousand", thousand);
-            digits.Add("Hundred", hundred);
-            digits.Add("Ten", ten);
-            digits.Add("Zero", zeros);
+            digits.Add(Digits.Thousand.ToString(), thousand);
+            digits.Add(Digits.Hundred.ToString(), hundred);
+            digits.Add(Digits.Ten.ToString(), ten);
+            digits.Add(Digits.Zero.ToString(), zeros);
 
             return digits;
         }

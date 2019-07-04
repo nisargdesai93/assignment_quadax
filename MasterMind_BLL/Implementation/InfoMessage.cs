@@ -6,7 +6,7 @@ namespace MasterMind_BLL.Implementation
 {
     public class InfoMessage : IInfoMessage
     {
-        public void PrintInformationalMessage(long messageId, int attemptCount = 0, bool maskRandomNumber = false, string randomNumber = "")
+        public void PrintInformationalMessage(long messageId, int attemptCount = 0, string randomNumber = "")
         {
             var message = (MessageType)messageId;
 
@@ -20,10 +20,9 @@ namespace MasterMind_BLL.Implementation
 
                 case MessageType.Instructions:
                     Console.WriteLine("INSTRUCTIONS: You will be given a random number four digit number, all digits between 1 to 6 (i.e 2343 or 4563)." + "\n" +
-                        "Once you see four astrics on your screen, you will be asked to enter a four digit number. " + "\n" +
-                        "For every correct digit a minus sign will appear. " +
-                        "For every correct digit at correct position a plus sign will appear." + "\n" +
-                        "To win the game you need to anticipate all four digits at correct position.");
+                        "Once you see randomly generated masked number on your screen, the game will start and you will be asked to enter a four digit " + "\n" +
+                        "number. For every correct digit at correct position, a plus (+) sign will appear. For every correct digit a minus (-) sign will " + "\n" +
+                        "appear. You will be given "+attemptCount+" attempts to win the game where you need to anticipate all four digits at correct position." + "\n");
                     Console.WriteLine();
                     break;
 
@@ -37,12 +36,8 @@ namespace MasterMind_BLL.Implementation
                     break;
 
 
-                case MessageType.GenerateRandomNumber:
-                    if (maskRandomNumber)
-                        Console.WriteLine("Random numbers generated is:  * * * *");
-                    else
-                        Console.WriteLine("Random number generated is: " + randomNumber);
-
+                case MessageType.PrintMaskedRandomNumber:
+                    Console.WriteLine("Random numbers generated is:  * * * *");
                     Console.WriteLine();
                     break;
 
@@ -71,13 +66,6 @@ namespace MasterMind_BLL.Implementation
 
         public void PrintIndividualResult(Result result)
         {
-            if (result.NumberOfDigitMatch > 0)
-            {
-                for (int i = 0; i < result.NumberOfDigitMatch; i++)
-                {
-                    Console.Write(" - ");
-                }
-            }
             if (result.NumberOfPositonalDigitMatch > 0)
             {
                 for (int i = 0; i < result.NumberOfPositonalDigitMatch; i++)
@@ -86,7 +74,22 @@ namespace MasterMind_BLL.Implementation
                 }
             }
 
+            if (result.NumberOfDigitMatch > 0)
+            {
+                for (int i = 0; i < result.NumberOfDigitMatch; i++)
+                {
+                    Console.Write(" - ");
+                }
+            }
             Console.WriteLine();
         }
+
+        public void PrintFinalResult(long allowedAttempt, long attemptMade, int randomNumber)
+        {
+            Console.WriteLine("__________________________________________________________________");
+            Console.WriteLine("Random number was: " + randomNumber);
+            Console.WriteLine("Allowed attempt: " + allowedAttempt + "\t Attempt:" + attemptMade);
+        }
+
     }
 }
