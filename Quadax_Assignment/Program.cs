@@ -21,7 +21,7 @@ namespace MasterMind_UI
 
             //Print introductory messages.
             infoMessage.PrintInformationalMessage((long)MessageType.WelcomeMessage);
-            infoMessage.PrintInformationalMessage((long)MessageType.Instructions,(int)Constants.MaxAttempts);
+            infoMessage.PrintInformationalMessage((long)MessageType.Instructions, (int)Constants.MaxAttempts);
 
             infoMessage.PrintInformationalMessage((long)MessageType.PlayerConfirmation);
 
@@ -39,6 +39,7 @@ namespace MasterMind_UI
 
             } while (userConfirmation != (long)ControlCommands.StartGame);
 
+        // Rematch will be started from here
         Play:
             var randomNumber = gameLogic.GenerateRandomNumber();
 
@@ -88,10 +89,12 @@ namespace MasterMind_UI
             if (userConfirmation == (long)ControlCommands.Exit)
                 return;
 
+            // If the player decides to play again, execution will start from line 44
             else if (userConfirmation == (long)ControlCommands.StartGame)
             {
                 loop = 1;
                 goto Play;
+                
             }
         }
     }

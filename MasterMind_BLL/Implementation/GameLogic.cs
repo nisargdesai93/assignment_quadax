@@ -128,7 +128,7 @@ namespace MasterMind_BLL.Implementation
             if (Convert.ToString(input).ToLower() == "y")
                 return (long)ControlCommands.StartGame;
 
-            if (Convert.ToString(input).ToLower() == "a" || Convert.ToString(input).ToLower() == "e")
+            if (Convert.ToString(input).ToLower() == "e")
                 return (long)ControlCommands.Exit;
 
             return flag;

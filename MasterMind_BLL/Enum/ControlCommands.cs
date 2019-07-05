@@ -5,6 +5,6 @@
         StartGame,
         Exit,
         WaitForInput,
-        GenerateNumbers,
+        
     }
 }

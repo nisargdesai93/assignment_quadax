@@ -27,7 +27,7 @@ namespace MasterMind_BLL.Implementation
                     break;
 
                 case MessageType.PlayerConfirmation:
-                    Console.WriteLine("Are you ready to play ?  Press Y/y to start playing. Press A/a to abort.");
+                    Console.WriteLine("Are you ready to play ?  Press Y/y to start playing. Press E/e to exit.");
                     break;
 
                 case MessageType.Abort:
