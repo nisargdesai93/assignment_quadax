@@ -10,6 +10,6 @@
 
     public enum Constants
     {
-        MaxAttempts = 5,
+        MaxAttempts = 10,
     }
 }
